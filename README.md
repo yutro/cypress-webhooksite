@@ -35,11 +35,21 @@ describe('My test', () => {
     
     it('should work', () => {
         cy.get('@emailRequest').then(({email, uuid}) => {
+            // type email into form input
             cy.findByLabelText('Email').should('be.empty').type(email)
-            // check what you need
 
-            // clean hook when not needed
-            cy.deleteWebHookSiteToken(uuid)
+            // send your form to Email Server
+            cy.findByRole('button').should('be.enabled').click()
+
+            // check that email has reached your mail box
+            cy.get('@emailRequest').then(({uuid}) => cy.getWebHookSiteTokenRequests(uuid).then((response) => {
+                const {data: [latestRequest]} = response
+
+                cy.wrap(latestRequest.content).should('contain', 'text youre email shold have')
+
+                // cleare webhook when you don't need it anymore
+                cy.deleteWebHookSiteToken(uuid)
+            }))
         })
     })
 })
