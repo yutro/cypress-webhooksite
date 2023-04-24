@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Icokie/adblock-detector.git"
+    "url": "git+https://github.com/Icokie/cypress-webhooksite.git"
   },
   "keywords": [
     "webhook.site",
@@ -39,6 +39,6 @@
     "cypress": "12.10.0"
   },
   "peerDependencies": {
-    "cypress": "^12.10.0"
+    "cypress": "^12.*"
   }
 }
