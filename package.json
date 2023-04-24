@@ -16,7 +16,8 @@
     "build": "tsc",
     "prepare": "npm run build",
     "version": "git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
