@@ -13,9 +13,10 @@
     "types/index.d.ts"
   ],
   "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
     "version": "git add -A src",
-    "postversion": "git push && git push --tags",
-    "build": "tsc"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
