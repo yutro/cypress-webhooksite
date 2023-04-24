@@ -1,4 +1,5 @@
-# AdblockDetector
+# Cypress-Webhooksite
+[![Buy me a beer](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/troinoff)
 
 Simple library which adds [webhook.site](https://docs.webhook.site) commands into  [cypress.io](https://docs.cypress.io)
 
@@ -12,12 +13,36 @@ Simple library which adds [webhook.site](https://docs.webhook.site) commands int
 ![total downloads per month](https://img.shields.io/npm/dm/@icokie/cypress-webhooksite.svg)
 
 ### Email e2e testing:
-```typescript jsx
-
-import AdblockDetector from 'adblock-detector';
-
-const userHasAdblock = AdblockDetector.detect();  
-// true if user has it false if not
-
+- add import to cypress `commands`
+```typescript
+import '@icokie/cypress-webhooksite'
 ```
+
+- connect types in `tsconfig.json`
+```json
+{
+  "compilerOptions": {
+    "types": ["cypress", "@icokie/cypress-webhooksite"]
+  }
+}
+```
+- use it in your CY `test` files
+```typescript jsx
+describe('My test', () => {
+    before(() => {
+        cy.getWebHookSiteToken().as('emailRequest')
+    })
+    
+    it('should work', () => {
+        cy.get('@emailRequest').then(({email, uuid}) => {
+            cy.findByLabelText('Email').should('be.empty').type(email)
+            // check what you need
+
+            // clean hook when not needed
+            cy.deleteWebHookSiteToken(uuid)
+        })
+    })
+})
+```
+
 ### That's it!
