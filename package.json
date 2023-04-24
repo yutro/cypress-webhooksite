@@ -1,0 +1,44 @@
+{
+  "name": "@icokie/cypress-webhooksite",
+  "version": "1.0.0",
+  "description": "Simple library that adds webhook.site commands for email testing with cypress.io",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  },
+  "files": [
+    "lib",
+    "types/index.d.ts"
+  ],
+  "scripts": {
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icokie/adblock-detector.git"
+  },
+  "keywords": [
+    "webhook.site",
+    "cypress webhook.site commands",
+    "cypress email testing",
+    "cypress email commands",
+    "cypress plugins"
+  ],
+  "author": "icokie (Yury Troynov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Icokie/cypress-webhooksite/issues"
+  },
+  "homepage": "https://github.com/Icokie/cypress-webhooksite#readme",
+  "devDependencies": {
+    "typescript": "5.0.4",
+    "cypress": "12.10.0"
+  },
+  "peerDependencies": {
+    "cypress": "^12.10.0"
+  }
+}

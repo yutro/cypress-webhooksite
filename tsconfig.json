@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["es5", "dom"],
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "types": ["cypress"],
+    "skipLibCheck": true,
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "**/__tests__/*", "lib"]
+}
