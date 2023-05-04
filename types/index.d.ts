@@ -1,3 +1,6 @@
+import '@testing-library/cypress/add-commands'
+
+import './commands.custom'
 
 export type WebhookSiteToken = Readonly<{
     uuid: string
