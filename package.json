@@ -13,7 +13,7 @@
     "types"
   ],
   "scripts": {
-    "build": "tsc ./tsconfig.json",
+    "build": "tsc",
     "prebuld": "npx rimraf lib",
     "prepare": "npm run build",
     "version": "git add -A src",
