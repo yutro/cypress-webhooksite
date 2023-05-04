@@ -1,6 +1,6 @@
 {
   "name": "@icokie/cypress-webhooksite",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Simple library that adds webhook.site commands for email testing with cypress.io",
   "main": "lib/commands.js",
   "types": "types/index.d.ts",
@@ -13,7 +13,7 @@
     "types"
   ],
   "scripts": {
-    "build": "tsc -b ./tsconfig.json ./tsconfig.tasks.json",
+    "build": "tsc ./tsconfig.json",
     "prebuld": "npx rimraf lib",
     "prepare": "npm run build",
     "version": "git add -A src",
