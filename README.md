@@ -18,6 +18,20 @@ Simple library which adds [webhook.site](https://docs.webhook.site) commands int
 import '@icokie/cypress-webhooksite'
 ```
 
+- add tasks into `cypress.config.ts`
+```typescript
+import {defineConfig} from 'cypress'
+import {tasks} from '@icokie/cypress-webhooksite/lib/tasks'
+
+export default defineConfig({
+    e2e: {
+        setupNodeEvents(on, config) {
+            on('task', tasks)
+        },
+    },
+})
+```
+
 - connect types in `tsconfig.json`
 ```json
 {
@@ -28,28 +42,40 @@ import '@icokie/cypress-webhooksite'
 ```
 - use it in your CY `test` files
 ```typescript jsx
-describe('My test', () => {
+describe('Email', () => {
     before(() => {
+        // request test email
         cy.getWebHookSiteToken().as('emailRequest')
     })
-    
-    it('should work', () => {
-        cy.get('@emailRequest').then(({email, uuid}) => {
-            // type email into form input
+
+    it('should receive email after user submits subscribe form', () => {
+        cy.visit('http://localhost:5000')
+
+        cy.findByLabelText('Name').should('be.empty').type('Test name')
+
+        cy.get('@emailRequest').then((response) => {
+            const { email } = response
+
+            // type email into form
             cy.findByLabelText('Email').should('be.empty').type(email)
+        })
 
-            // send your form to Email Server
-            cy.findByRole('button').should('be.enabled').click()
+        // send email form
+        cy.findByRole('button').should('be.enabled').click()
 
-            // check that email has reached your mail box
-            cy.get('@emailRequest').then(({uuid}) => cy.getWebHookSiteTokenRequests(uuid).then((response) => {
+        cy.get('@emailRequest').then((response) => {
+            const { uuid } = response
+
+            return cy.getWebHookSiteTokenRequests(uuid, undefined, 30000).then((response) => {
+                // get latest email request from email server
                 const {data: [latestRequest]} = response
 
-                cy.wrap(latestRequest.content).should('contain', 'text youre email shold have')
+                // check if email contains message which was sent
+                cy.wrap(latestRequest.content).should('contain', 'Congratulations you are subscribed :) stay tuned!!!!')
 
-                // cleare webhook when you don't need it anymore
+                // delete email when not needed :)
                 cy.deleteWebHookSiteToken(uuid)
-            }))
+            });
         })
     })
 })
